@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum foodTiming {
+  LUNCH
+  DINNER
+}
+
+model User {
+  id            String      @id @default(uuid())
+  name          String
+  email         String      @unique
+  userRole      UserRole    @default(USER)
+  collegeName   String?
+  houseName     String?
+  image         String?
+  emailVerified DateTime?
+  accounts      Account[]
+  foodData      FoodData[]
+  foodStats     foodStats[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Account {
+  id                       String  @id @default(cuid())
+  userId                   String  @unique
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? @db.Text
+  access_token             String? @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? @db.Text
+  session_state            String?
+  refresh_token_expires_in Int?
+  user                     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model FoodData {
+  id          String      @id @default(uuid())
+  collegeName String
+  houseName   String
+  food        foodStats[]
+  foodTiming  foodTiming
+  User        User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model foodStats {
+  id          String    @id @default(uuid())
+  foodName    String
+  foodRating  Int
+  foodWastage Int
+  likeFood    Boolean   @default(false)
+  User        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String?
+  FoodData    FoodData? @relation(fields: [foodDataId], references: [id], onDelete: Cascade)
+  foodDataId  String?
+}
+
+model CollegeList {
+  id          String  @id @default(uuid())
+  collegeName String  @unique
+  house       House[]
+}
+
+model House {
+  id            String       @id @default(uuid())
+  houseName     String       @unique
+  foodList      FoodList[]
+  CollegeList   CollegeList? @relation(fields: [collegeListId], references: [id], onDelete: Cascade)
+  collegeListId String?
+}
+
+model FoodList {
+  id       String  @id @default(uuid())
+  foodName String  @unique
+  House    House?  @relation(fields: [houseId], references: [id], onDelete: Cascade)
+  houseId  String?
+}
