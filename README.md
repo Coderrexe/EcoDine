@@ -1,3 +1,21 @@
+# EcoDine - Food Waste Management App for Schools
+
+[EcoDine](https://eco-dine.vercel.app/) is a web application designed to help school dining halls reduce food waste and enhance student satisfaction by improving communication between students and kitchen staff. The app collects brief, 10-second surveys from students after each meal, recording their satisfaction levels and the amount of food waste generated. This data is then saved to a database, providing clear visualization and analysis of food waste and student preferences. This process helps dining halls continuously update their menus, make informed decisions, and manage kitchen waste from overproduction.
+
+## Objectives
+
+- **Reduce food waste**: Help dining halls identify the most wasted dishes, and thus make informed decisions to minimize food waste and avoid overproduction.
+- **Increase student satisfaction**: Optimize menus to improve the student experience based on their feedback.
+- **Promote environmental awareness**: Since students can track their own food waste, it encourages them to be mindful of their environmental footprint.
+- **Enhance nutritional awareness**: Help students to track their dietary habits and see how their choices align with recommended dietary guidelines.
+- **Streamline inventory operations**: Use data to optimize kitchen inventory management, reducing waste and improving cost efficiency.
+
+## Key Features
+
+- [EcoDine](https://eco-dine.vercel.app/)
+
+For more information, visit [EcoDine](https://eco-dine.vercel.app/).
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
